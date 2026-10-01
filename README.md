@@ -105,7 +105,7 @@ O PsyKey também apresenta outras possibilidades quando a análise não é sufic
 
 ---
 
-# 🌈 4. Análise de espectro
+#  4. Análise de espectro
 
 O programa possui análise espectral com representação logarítmica de frequências.
 
@@ -593,13 +593,7 @@ Adicione capturas de tela em:
 
 Recomenda-se mostrar:
 
-1. Tela principal com biblioteca;
-2. Análise BPM;
-3. Análise de espectro + Camelot;
-4. Player;
-5. Medidores LUFS/VU;
-6. Menu de contexto;
-7. Diagnóstico de áudio.
+em breve
 
 ---
 
@@ -615,9 +609,7 @@ Sugestões, correções, melhorias de desempenho e novos recursos podem ser envi
 
 Escolha a licença que será utilizada pelo projeto.
 
-Uma opção simples para software open-source é:
 
-```text
 MIT License
 ```
 
