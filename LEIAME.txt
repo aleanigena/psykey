@@ -1,0 +1,70 @@
+BPM RENAMER 5.0
+===============
+
+O que o programa faz
+--------------------
+Aba "Renomear por BPM"
+  - Detecta o BPM (2 casas decimais) de mp3, flac e wav, otimizado para psytrance,
+    darkpsy, hi-tech, forest, psycore (135 a 500 BPM), e renomeia:
+    "Musica.mp3" -> "148,00 - Musica.mp3". Tem "Desfazer".
+  - Botao direito em uma musica:
+      * Copiar para a pasta de sets (a pasta e escolhida uma vez e fica salva)
+      * Abrir pasta original da musica (ja com o arquivo selecionado)
+      * Ver espectro e tom desta faixa
+
+Aba "Espectro e Tom"
+  - Forma de onda colorida em 3 bandas (graves azul, medios ambar, agudos branco),
+    espectrograma, tom (nota + maior/menor), codigo na roda Camelot com a cor e a
+    sigla da nota (ex.: 8A = Am), chaves que combinam e alternativas.
+
+
+GERAR O INSTALADOR (.exe) - feito por voce, UMA vez, no Windows
+----------------------------------------------------------------
+Requisitos da maquina onde o instalador sera gerado:
+  - Windows 10 ou 11 (64 bits) com internet (so na geracao).
+  - Python 3.11 (64 bits) de https://www.python.org/downloads/windows/
+    (marque "Add python.exe to PATH"). Python 3.10 e 3.12 tambem servem.
+  - O Inno Setup 6.3+ e instalado automaticamente pelo winget, se voce nao tiver.
+
+Passo a passo:
+  1. Extraia esta pasta (BPMRenamer) em um local simples, ex.: C:\BPMRenamer
+  2. De dois cliques em  build_windows.bat  e aguarde (10 a 20 minutos na primeira vez).
+  3. O instalador aparece em:  installer_output\BPMRenamer_Setup_5.0.exe
+
+O script faz tudo sozinho: cria um ambiente Python isolado, baixa as bibliotecas
+(numpy, scipy, numba, librosa, soundfile), empacota tudo com o PyInstaller, TESTA o
+programa gerado (deteccao de BPM e de tom em um sinal de teste) e so entao cria o
+instalador. Se o teste falhar, o instalador nao e criado e o log aparece na tela.
+
+
+PARA OS USUARIOS FINAIS
+-----------------------
+  - Basta executar BPMRenamer_Setup_5.0.exe e clicar em "Avancar".
+  - Nao precisa instalar Python nem nenhuma biblioteca: tudo vai dentro do instalador.
+  - Funciona no Windows 10 e 11 (64 bits). Nao exige administrador (instala so para o
+    usuario atual; o assistente permite escolher "para todos os usuarios").
+  - Na primeira analise o programa demora um pouco mais (carregamento das bibliotecas).
+  - Como o instalador nao tem assinatura digital, o Windows SmartScreen pode mostrar
+    "O Windows protegeu o seu computador": clique em "Mais informacoes" e depois em
+    "Executar assim mesmo". Para remover o aviso e preciso um certificado de assinatura
+    de codigo (pago). Alguns antivirus tambem desconfiam de programas empacotados com
+    PyInstaller; se acontecer, adicione uma excecao.
+
+
+ONDE FICAM OS DADOS
+-------------------
+  %APPDATA%\BPMRenamer\config.json   pasta de sets escolhida
+  %APPDATA%\BPMRenamer\erro.log      registro de erros (envie este arquivo se algo falhar)
+
+
+TESTES E SOLUCAO DE PROBLEMAS
+-----------------------------
+  - Autoteste manual:  BPMRenamer.exe --selftest
+    O resultado fica em  %TEMP%\bpmrenamer_selftest.log
+  - MP3: com soundfile 0.12 ou mais novo o mp3 abre sem programas extras. Se algum mp3
+    especifico nao abrir, instale o FFmpeg e coloque-o no PATH como plano B.
+  - Rodar sem instalar (para desenvolvedores):
+        py -3.11 -m venv .venv
+        .venv\Scripts\activate
+        pip install -r requirements.txt
+        python bpm_renamer_gui.py
